@@ -60,7 +60,7 @@ namespace WindowsFormsApplication6
 
         void Handle_MouseClick(object sender, MouseEventArgs e)
         {
-            Vakje klikvakje = vakjes[e.X / vakjesformaat, e.Y / vakjesformaat];
+            Vakje klikvakje = vakjes[(e.X-2) / vakjesformaat, (e.Y-2) / vakjesformaat];
             klikvakje.gevuld = true;
             if (roodbeurt)
                 klikvakje.rood = true;
