@@ -70,6 +70,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Vakje.cs" />
+    <Compile Include="Speelveld.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
