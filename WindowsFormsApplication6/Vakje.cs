@@ -6,11 +6,28 @@ namespace WindowsFormsApplication6
 {
     public class Vakje
     {
-        public bool gevuld;
+        int x, y;
+        public bool gevuld, rood;
 
-        public Vakje()
+        public Vakje(int a, int b)
         {
+            x = a;
+            y = b;
             gevuld = false;
+            rood = false;
+        }
+
+        public void Tekenvakje(Graphics g, int grootte)
+        {
+            if (gevuld)
+            {
+                if (rood)
+                    g.FillEllipse(Brushes.Red, x * grootte, y * grootte, 
+                                  grootte,grootte);
+                else
+                    g.FillEllipse(Brushes.Blue, x * grootte, y * grootte, 
+                                  grootte, grootte);
+            }
         }
     }
 }
