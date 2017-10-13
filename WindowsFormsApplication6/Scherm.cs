@@ -53,7 +53,7 @@ namespace WindowsFormsApplication6
 
         void Handle_MouseClick(object sender, MouseEventArgs e)
         {
-            Console.WriteLine(e.X + " " + e.Y);
+            
         }
     }
 }
