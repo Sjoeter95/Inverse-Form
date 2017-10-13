@@ -13,7 +13,7 @@ namespace WindowsFormsApplication6
 {
     public class Scherm : Form
     {
-        Speelveld speelveld;
+        public Speelveld speelveld;
 
         public Scherm()
         {
@@ -27,8 +27,10 @@ namespace WindowsFormsApplication6
 
     public class Speelveld : UserControl
     {
-        int xvakjes = 10, yvakjes = 6;
+        int xvakjes = 6, yvakjes = 6;
         int vakjesformaat = 50;
+        bool roodbeurt = true;
+        Vakje[,] vakjes;
 
         public Speelveld()
         {
@@ -38,6 +40,7 @@ namespace WindowsFormsApplication6
             this.BackColor = Color.White;
             this.Paint += Handle_Paint;
             this.MouseClick += Handle_MouseClick;
+            vakjes = new Vakje[xvakjes, yvakjes];
         }
 
         void Handle_Paint(object sender, PaintEventArgs e)
@@ -54,6 +57,12 @@ namespace WindowsFormsApplication6
         void Handle_MouseClick(object sender, MouseEventArgs e)
         {
             
+            this.Invalidate();
+            if (roodbeurt)
+                roodbeurt = false;
+            else
+                roodbeurt = true;
+            Console.WriteLine(roodbeurt);
         }
     }
 }

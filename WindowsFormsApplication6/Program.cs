@@ -16,7 +16,8 @@ namespace WindowsFormsApplication6
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Scherm());
+            Scherm s = new Scherm();
+            Application.Run(s);
 
         }
     }
