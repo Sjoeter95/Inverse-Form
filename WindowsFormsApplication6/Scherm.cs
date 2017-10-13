@@ -18,7 +18,7 @@ namespace WindowsFormsApplication6
         public Scherm()
         {
             speelveld = new Speelveld();
-            this.ClientSize = new Size(speelveld.Width + 200, 
+            this.ClientSize = new Size(speelveld.Width + 100, 
                                        speelveld.Height + 200);
             Controls.Add(speelveld);
 
@@ -27,13 +27,33 @@ namespace WindowsFormsApplication6
 
     public class Speelveld : UserControl
     {
-        int xvakjes = 6, yvakjes = 6;
+        int xvakjes = 10, yvakjes = 6;
+        int vakjesformaat = 50;
 
         public Speelveld()
         {
-            this.Size = new Size(xvakjes * 50, yvakjes * 50);
-            this.Location = new Point(100, 100);
+            this.Size = new Size(xvakjes * vakjesformaat + 1, 
+                                 yvakjes * vakjesformaat + 1);
+            this.Location = new Point(50, 150);
             this.BackColor = Color.White;
+            this.Paint += Handle_Paint;
+            this.MouseClick += Handle_MouseClick;
+        }
+
+        void Handle_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            for (int t = 0; t <= xvakjes; t++)
+                g.DrawLine(Pens.Black, t * vakjesformaat, 0, t * vakjesformaat, 
+                           yvakjes * vakjesformaat);
+            for (int t = 0; t <= yvakjes; t++)
+                g.DrawLine(Pens.Black, 0, t * vakjesformaat, 
+                           xvakjes * vakjesformaat, t * vakjesformaat);
+        }
+
+        void Handle_MouseClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine(e.X + " " + e.Y);
         }
     }
 }
