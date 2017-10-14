@@ -7,7 +7,7 @@ namespace WindowsFormsApplication6
     public class Speelveld : UserControl
     {
         int xvakjes = 6, yvakjes = 6;
-        public int vakjesformaat = 50;
+        public int vakjesformaat = 75;
         public bool roodbeurt = true;
         Vakje[,] vakjes;
 
@@ -62,16 +62,20 @@ namespace WindowsFormsApplication6
         void Handle_MouseClick(object sender, MouseEventArgs e)
         {
             Vakje klikvakje = vakjes[(e.X-2) / vakjesformaat, (e.Y-2) / vakjesformaat];
-            klikvakje.gevuld = true;
-            if (roodbeurt)
-                klikvakje.rood = true;
-            else
-                klikvakje.rood = false;
-            this.Invalidate();
-            if (roodbeurt)
-                roodbeurt = false;
-            else
-                roodbeurt = true;
+
+            if (klikvakje.Legaal(vakjes))
+            {
+                klikvakje.gevuld = true;
+                if (roodbeurt)
+                    klikvakje.rood = true;
+                else
+                    klikvakje.rood = false;
+                this.Invalidate();
+                if (roodbeurt)
+                    roodbeurt = false;
+                else
+                    roodbeurt = true;
+            }
         }
     }
 }

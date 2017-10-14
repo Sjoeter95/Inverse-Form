@@ -29,5 +29,13 @@ namespace WindowsFormsApplication6
                                   grootte - 2, grootte - 2);
             }
         }
+
+        public bool Legaal(Vakje[,] vakjes)
+        {
+            if (this.gevuld)
+                return false;
+            return true;
+        }
     }
+
 }
