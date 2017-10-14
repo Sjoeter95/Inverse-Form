@@ -22,11 +22,11 @@ namespace WindowsFormsApplication6
             if (gevuld)
             {
                 if (rood)
-                    g.FillEllipse(Brushes.Red, x * grootte, y * grootte, 
-                                  grootte,grootte);
+                    g.FillEllipse(Brushes.Red, x * grootte + 1, y * grootte + 1,
+                                  grootte - 2, grootte - 2);
                 else
-                    g.FillEllipse(Brushes.Blue, x * grootte, y * grootte, 
-                                  grootte, grootte);
+                    g.FillEllipse(Brushes.Blue, x * grootte + 1, y * grootte + 1,
+                                  grootte - 2, grootte - 2);
             }
         }
     }

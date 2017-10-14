@@ -38,14 +38,15 @@ namespace WindowsFormsApplication6
         void Handle_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            Pen pen = new Pen(Brushes.Black, 2);
             for (int t = 0; t <= xvakjes; t++)
             {
-                g.DrawLine(Pens.Black, t * vakjesformaat, 0, t * vakjesformaat,
+                g.DrawLine(pen, t * vakjesformaat, 0, t * vakjesformaat,
                            yvakjes * vakjesformaat);
             }
 
             for (int t = 0; t <= yvakjes; t++)
-                g.DrawLine(Pens.Black, 0, t * vakjesformaat,
+                g.DrawLine(pen, 0, t * vakjesformaat,
                            xvakjes * vakjesformaat, t * vakjesformaat);
 
             for (int a = 0; a < xvakjes; a++)
