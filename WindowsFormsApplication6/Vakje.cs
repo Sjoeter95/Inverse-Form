@@ -15,7 +15,7 @@ namespace WindowsFormsApplication6
             y = b;
             gevuld = false;
             rood = false;
-            stapmogelijk = false;
+            stapmogelijk = true;
         }
 
 

@@ -6,7 +6,7 @@ namespace WindowsFormsApplication6
 {
     public class Speelveld : UserControl
     {
-        int xvakjes = 10, yvakjes = 10;
+        int xvakjes = 6, yvakjes = 6;
         public int vakjesformaat = 75;
         public bool roodbeurt = true;
         Vakje[,] vakjes;
@@ -63,178 +63,108 @@ namespace WindowsFormsApplication6
         }
 
         void Stapmogelijkcontrole()
+        {
+            if (roodbeurt == true)
             {
-            for (int x = 0; x < xvakjes; x++)
-                for (int y = 0; y < yvakjes; y++)
-                {
-                    if (roodbeurt == true && vakjes[x, y].gevuld == true && vakjes[x, y].rood == true)
+                for (int x = 1; x < xvakjes; x++)
+                    for (int y = 1; y < yvakjes; y++)
                     {
-                        if (vakjes[x + 1, y].rood == false && vakjes[x + 1, y].gevuld == true)
-                            for (int z = 2; x + z < xvakjes; z++)
-                                if (vakjes[x + z, y].gevuld == false)
-                                {
-                                    vakjes[x + z, y].stapmogelijk = true;
-                                    z = xvakjes;
-                                }
-                                else if (vakjes[x + z, y].gevuld == true && vakjes[x + z, y].rood == true)
-                                    z = xvakjes;
+                        if (vakjes[x, y].gevuld == true && vakjes[x, y].rood == true)
 
-                        if (vakjes[x - 1, y].rood == false && vakjes[x - 1, y].gevuld == true)
-                            for (int z = 2; x - z < 0; z++)
-                                if (vakjes[x - z, y].gevuld == false)
-                                {
-                                    vakjes[x - z, y].stapmogelijk = true;
-                                    z = x;
-                                }
-                                else if (vakjes[x - z, y].gevuld == true && vakjes[x - z, y].rood == true)
-                                    z = x;
+                        {
+                            int a = -1, b = -1;
 
-                        if (vakjes[x, y + 1].rood == false && vakjes[x, y + 1].gevuld == true)
-                            for (int z = 2; y + z < yvakjes; z++)
-                                if (vakjes[x, y + z].gevuld == false)
+                            while (a < 2)
+                            {
+                                while (b < 2)
                                 {
-                                    vakjes[x, y + z].stapmogelijk = true;
-                                    z = yvakjes;
-                                }
-                                else if (vakjes[x, y + z].gevuld == true && vakjes[x, y + z].rood == true)
-                                    z = yvakjes;
+                                    if (vakjes[x + a, y + b].rood == false && vakjes[x + a, y + b].gevuld == true)
+                                    {
+                                        int c = a + a, d = b + b; // dit klopt nog niet helemaal tijdelijk
+                                        if(x+c> 0 && y +d >0 && x +c < xvakjes && y + d < yvakjes)
+                                        {
+                                            if (vakjes[x + c, y + d].gevuld == false)
+                                                {
+                                                    vakjes[x + c, y + d].stapmogelijk = true;
+                                                }
 
-                        if (vakjes[x, y - 1].rood == false && vakjes[x, y - 1].gevuld == true)
-                            for (int z = 2; y - z < 0; z++)
-                                if (vakjes[x, y - z].gevuld == false)
-                                {
-                                    vakjes[x, y - z].stapmogelijk = true;
-                                    z = y;
-                                }
-                                else if (vakjes[x, y - z].gevuld == true && vakjes[x, y - z].rood == true)
-                                    z = y;
 
-                        if (vakjes[x + 1, y + 1].rood == false && vakjes[x + 1, y + 1].gevuld == true)
-                            for (int z = 2; x + z < xvakjes && y + z < yvakjes; z++)
-                                if (vakjes[x + z, y + z].gevuld == false)
-                                {
-                                    vakjes[x + z, y + z].stapmogelijk = true;
-                                    z = xvakjes = yvakjes;
+                                            else if (vakjes[x + c, y + d].gevuld == true && vakjes[x + c, y + d].rood == true)
+                                                        vakjes[x + c, y + d].stapmogelijk = false;
+
+                                                else if (vakjes[x + c, y + d].rood == false && vakjes[x + c, y + d].gevuld == true)
+
+                                                vakjes[x + c, y + d].stapmogelijk = false;
+                                        }
+                                        else ;
+
+                                    }
+
+                                    b += 1;
+
                                 }
-                                else if (vakjes[x + z, y + z].gevuld == true && vakjes[x + z, y + z].rood)
-                                    z = xvakjes + yvakjes;
-                        if (vakjes[x - 1, y - 1].rood == false && vakjes[x - 1, y - 1].gevuld == true)
-                            for (int z = 2; x - z < 0 && y - z < 0; z++)
-                                if (vakjes[x - z, y - z].gevuld == false)
+                                b = -1;
+                                a += 1;
+
+                            }
+                        }
+                    }
+            }
+
+
+            else if (roodbeurt == false)
+            {
+                for (int x = 0; x < xvakjes; x++)
+                    for (int y = 0; y < yvakjes; y++)
+                    {
+                        if (vakjes[x, y].gevuld == true && vakjes[x, y].rood == false)
+                        {
+                            int a = -1, b = -1;
+
+                            while (a < 2)
+                            {
+                                while (b < 2)
                                 {
-                                    vakjes[x - z, y - z].stapmogelijk = true;
-                                    z = x;
+                                    if (vakjes[x + a, y + b].rood == true && vakjes[x + a, y + b].gevuld == true)
+                                    {
+                                        int c = a + a, d = b + b; // dit klopt nog niet helemaal tijdelijk
+                                        if (x + c > 0 && y + d > 0 && x + c < xvakjes && y + d < yvakjes)
+                                        {
+                                            if (vakjes[x + c, y + d].gevuld == false)
+                                            {
+                                                vakjes[x + c, y + d].stapmogelijk = true;
+                                            }
+
+
+                                            else if (vakjes[x + c, y + d].gevuld == true && vakjes[x + c, y + d].rood == true)
+                                                vakjes[x = c, y + d].stapmogelijk = false;
+
+                                            else if (vakjes[x + c, y + d].rood == false && vakjes[x + c, y + d].gevuld == true)
+                                                vakjes[x = c, y + d].stapmogelijk = false;
+                                        }
+                                        else;
+                                    }
+
+                                    b += 1;
                                 }
-                                else if (vakjes[x - z, y - z].gevuld == true && vakjes[x - z, y - z].rood == true)
-                                    z = x;
-                        if (vakjes[x - 1, y + 1].rood == false && vakjes[x - 1, y + 1].gevuld == true)
-                            for (int z = 2; x - z < 0 && y + z < yvakjes; z++)
-                                if (vakjes[x - z, y + z].gevuld == false)
-                                {
-                                    vakjes[x - z, y + z].stapmogelijk = true;
-                                    z = x;
-                                }
-                                else if (vakjes[x - z, y + z].gevuld == true && vakjes[x - z, y + z].rood == true)
-                                    z = x;
-                        if (vakjes[x + 1, y - 1].rood == false && vakjes[x + 1, y - 1].gevuld == true)
-                            for (int z = 2; x + z < xvakjes && y - z < 1 && vakjes[x + z, y - z].rood; z++)
-                                if (vakjes[x + z, y - z].gevuld == false)
-                                {
-                                    vakjes[x + z, y - z].stapmogelijk = true;
-                                    z = y;
-                                }
-                                else if (vakjes[x + z, y - z].gevuld == true && vakjes[x + z, y - z].rood == true)
-                                    z = y;
+
+                                b = -1;
+                                a += 1;
+
+
+                            }
+
+                        }
                     }
 
-                    else if (roodbeurt == false && vakjes[x, y].gevuld == true && vakjes[x, y].rood == false)
-                    {
-                        if (vakjes[x + 1, y].rood == true && vakjes[x + 1, y].gevuld == true)
-                            for (int z = 2; x + z < xvakjes; z++)
-                                if (vakjes[x + z, y].gevuld == false)
-                                {
-                                    vakjes[x + z, y].stapmogelijk = true;
-                                    z = xvakjes;
-                                }
-                                else if (vakjes[x + z, y].gevuld == true && vakjes[x + z, y].rood == false)
-                                    z = xvakjes;
-
-                        if (vakjes[x - 1, y].rood == true && vakjes[x - 1, y].gevuld == true)
-                            for (int z = 2; x - z < 0; z++)
-                                if (vakjes[x - z, y].gevuld == false)
-                                {
-                                    vakjes[x - z, y].stapmogelijk = true;
-                                    z = x;
-                                }
-                                else if (vakjes[x - z, y].gevuld == true && vakjes[x - z, y].rood == false)
-                                    z = x;
-
-                        if (vakjes[x, y + 1].rood == true && vakjes[x, y + 1].gevuld == true)
-                            for (int z = 2; y + z < yvakjes; z++)
-                                if (vakjes[x, y + z].gevuld == false)
-                                {
-                                    vakjes[x, y + z].stapmogelijk = true;
-                                    z = yvakjes;
-                                }
-                                else if (vakjes[x, y + z].gevuld == true && vakjes[x, y + z].rood == false)
-                                    z = yvakjes;
-
-                        if (vakjes[x, y - 1].rood == true && vakjes[x, y - 1].gevuld == true)
-                            for (int z = 2; y - z < 0; z++)
-                                if (vakjes[x, y - z].gevuld == false)
-                                {
-                                    vakjes[x, y - z].stapmogelijk = true;
-                                    z = y;
-                                }
-                                else if (vakjes[x, y - z].gevuld == true && vakjes[x, y - z].rood == false)
-                                    z = y;
-
-                        if (vakjes[x + 1, y + 1].rood == true && vakjes[x + 1, y + 1].gevuld == true)
-                            for (int z = 2; x + z < xvakjes && y + z < yvakjes; z++)
-                                if (vakjes[x + z, y + z].gevuld == false)
-                                {
-                                    vakjes[x + z, y + z].stapmogelijk = true;
-                                    z = xvakjes + yvakjes;
-                                }
-                                else if (vakjes[x + z, y + z].gevuld == true && vakjes[x + z, y + z].rood == false)
-                                    z = xvakjes + yvakjes;
-
-                        if (vakjes[x - 1, y - 1].rood == true && vakjes[x - 1, y - 1].gevuld == true)
-                            for (int z = 2; x - z < 0 && y - z < 0; z++)
-                                if (vakjes[x - z, y - z].gevuld == false)
-                                {
-                                    vakjes[x - z, y - z].stapmogelijk = true;
-                                    z = x;
-                                }
-                                else if (vakjes[x - z, y - z].gevuld == true && vakjes[x - z, y - z].rood == false)
-                                    z = x;
-
-                        if (vakjes[x - 1, y + 1].rood == true && vakjes[x - 1, y + 1].gevuld == true)
-                            for (int z = 2; x - z < 0 && y + z < yvakjes; z++)
-                                if (vakjes[x - z, y + z].gevuld == false)
-                                {
-                                    vakjes[x - z, y + z].stapmogelijk = true;
-                                    z = x;
-                                }
-                                else if (vakjes[x - z, y + z].gevuld == true && vakjes[x - z, y + z].rood == false)
-                                    z = x;
-                        if (vakjes[x + 1, y - 1].rood == true && vakjes[x + 1, y - 1].gevuld == true)
-                            for (int z = 2; x + z < xvakjes && y - z < 1; z++)
-                                if (vakjes[x + z, y - z].gevuld == false)
-                                {
-                                    vakjes[x + z, y - z].stapmogelijk = true;
-                                    z = y;
-                                }
-                                else if (vakjes[x + z, y - z].gevuld == true && vakjes[x + z, y - z].rood == false)
-                                    z = y;
-                    }
-                }
+            }
+        
+        }
                         
                         
 
                     
                         
-            }
 
         void Handle_MouseClick(object sender, MouseEventArgs e)
         {
