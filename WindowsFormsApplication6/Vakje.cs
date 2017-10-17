@@ -7,7 +7,7 @@ namespace WindowsFormsApplication6
     public class Vakje
     {
         int x, y;
-        public bool gevuld, rood;
+        public bool gevuld, rood, stapmogelijk;
 
         public Vakje(int a, int b)
         {
@@ -15,7 +15,9 @@ namespace WindowsFormsApplication6
             y = b;
             gevuld = false;
             rood = false;
+            stapmogelijk = false;
         }
+
 
         public void Tekenvakje(Graphics g, int grootte)
         {
@@ -30,11 +32,16 @@ namespace WindowsFormsApplication6
             }
         }
 
+        public void Controle()
+        {
+
+        }
+
         public bool Legaal(Vakje[,] vakjes)
         {
-            if (this.gevuld)
-                return false;
-            return true;
+            if (this.stapmogelijk)
+                return true;
+            return false;
         }
     }
 
