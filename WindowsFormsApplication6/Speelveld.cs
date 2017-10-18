@@ -6,10 +6,10 @@ namespace WindowsFormsApplication6
 {
     public class Speelveld : UserControl
     {
-        int xvakjes = 6, yvakjes = 6;
+        public int xvakjes = 6, yvakjes = 6;
         public int vakjesformaat = 75;
         public bool roodbeurt = true;
-        Vakje[,] vakjes;
+        public Vakje[,] vakjes;
 
         public Speelveld()
         {
@@ -35,7 +35,6 @@ namespace WindowsFormsApplication6
             vakjes[(xvakjes - 1) / 2, (yvakjes - 1) / 2 + 1].rood = true;
             vakjes[(xvakjes - 1) / 2 + 1, (yvakjes - 1) / 2].rood = true;
 
-            Stapmogelijkcontrole();
         }
 
         void Handle_Paint(object sender, PaintEventArgs e)
@@ -56,127 +55,26 @@ namespace WindowsFormsApplication6
             {
                 for (int b = 0; b < yvakjes; b++)
                 {
-                    vakjes[a, b].Tekenvakje(g, vakjesformaat);
+                    vakjes[a, b].Tekenvakje(g, vakjesformaat, this);
                 }
             }
-
         }
-
-        void Stapmogelijkcontrole()
-        {
-            if (roodbeurt == true)
-            {
-                for (int x = 1; x < xvakjes; x++)
-                    for (int y = 1; y < yvakjes; y++)
-                    {
-                        if (vakjes[x, y].gevuld == true && vakjes[x, y].rood == true)
-
-                        {
-                            int a = -1, b = -1;
-
-                            while (a < 2)
-                            {
-                                while (b < 2)
-                                {
-                                    if (vakjes[x + a, y + b].rood == false && vakjes[x + a, y + b].gevuld == true)
-                                    {
-                                        int c = a + a, d = b + b; // dit klopt nog niet helemaal tijdelijk
-                                        if(x+c> 0 && y +d >0 && x +c < xvakjes && y + d < yvakjes)
-                                        {
-                                            if (vakjes[x + c, y + d].gevuld == false)
-                                                {
-                                                    vakjes[x + c, y + d].stapmogelijk = true;
-                                                }
-
-
-                                            else if (vakjes[x + c, y + d].gevuld == true && vakjes[x + c, y + d].rood == true)
-                                                        vakjes[x + c, y + d].stapmogelijk = false;
-
-                                                else if (vakjes[x + c, y + d].rood == false && vakjes[x + c, y + d].gevuld == true)
-
-                                                vakjes[x + c, y + d].stapmogelijk = false;
-                                        }
-                                        else ;
-
-                                    }
-
-                                    b += 1;
-
-                                }
-                                b = -1;
-                                a += 1;
-
-                            }
-                        }
-                    }
-            }
-
-
-            else if (roodbeurt == false)
-            {
-                for (int x = 0; x < xvakjes; x++)
-                    for (int y = 0; y < yvakjes; y++)
-                    {
-                        if (vakjes[x, y].gevuld == true && vakjes[x, y].rood == false)
-                        {
-                            int a = -1, b = -1;
-
-                            while (a < 2)
-                            {
-                                while (b < 2)
-                                {
-                                    if (vakjes[x + a, y + b].rood == true && vakjes[x + a, y + b].gevuld == true)
-                                    {
-                                        int c = a + a, d = b + b; // dit klopt nog niet helemaal tijdelijk
-                                        if (x + c > 0 && y + d > 0 && x + c < xvakjes && y + d < yvakjes)
-                                        {
-                                            if (vakjes[x + c, y + d].gevuld == false)
-                                            {
-                                                vakjes[x + c, y + d].stapmogelijk = true;
-                                            }
-
-
-                                            else if (vakjes[x + c, y + d].gevuld == true && vakjes[x + c, y + d].rood == true)
-                                                vakjes[x = c, y + d].stapmogelijk = false;
-
-                                            else if (vakjes[x + c, y + d].rood == false && vakjes[x + c, y + d].gevuld == true)
-                                                vakjes[x = c, y + d].stapmogelijk = false;
-                                        }
-                                        else;
-                                    }
-
-                                    b += 1;
-                                }
-
-                                b = -1;
-                                a += 1;
-
-
-                            }
-
-                        }
-                    }
-
-            }
-        
-        }
-                        
-                        
-
-                    
-                        
 
         void Handle_MouseClick(object sender, MouseEventArgs e)
         {
-            Vakje klikvakje = vakjes[(e.X-2) / vakjesformaat , (e.Y-2) / vakjesformaat ];
+            Vakje klikvakje = vakjes[(e.X - 2) / vakjesformaat,
+                                     (e.Y - 2) / vakjesformaat];
 
-            if (klikvakje.Legaal(vakjes))
+            if (klikvakje.Legaal(this))
             {
                 klikvakje.gevuld = true;
                 if (roodbeurt)
                     klikvakje.rood = true;
                 else
                     klikvakje.rood = false;
+
+                klikvakje.Insluiten(this);
+
                 this.Invalidate();
                 if (roodbeurt)
                     roodbeurt = false;
@@ -184,12 +82,6 @@ namespace WindowsFormsApplication6
                     roodbeurt = true;
                 
             }
-
-            for (int x = 1; x < xvakjes; x++)
-                for (int y = 1; y < yvakjes; y++)
-                    vakjes[x, y].stapmogelijk = false;
-
-                    Stapmogelijkcontrole();
         }
     }
 }
