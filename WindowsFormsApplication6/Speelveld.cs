@@ -10,7 +10,7 @@ namespace WindowsFormsApplication6
         public int vakjesformaat = 75;
         public bool roodbeurt = true;
         public bool help = false;
-        public bool pasknop = true;
+        public bool pasknop = false;
         public Vakje[,] vakjes;
 
         public Speelveld()
