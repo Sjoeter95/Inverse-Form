@@ -25,15 +25,16 @@ namespace WindowsFormsApplication6
                     g.FillEllipse(Brushes.Red, x * grootte + 1, y * grootte + 1,
                                   grootte - 2, grootte - 2);
                 else
-                    g.FillEllipse(Brushes.Blue, x * grootte + 1, y * grootte + 1,
-                                  grootte - 2, grootte - 2);
+                    g.FillEllipse(Brushes.Blue, x * grootte + 1, 
+                                  y * grootte + 1, grootte - 2, grootte - 2);
             }
-            else if (this.Legaal(speelveld))
-                g.FillEllipse(Brushes.Gray, x * grootte + 1, y * grootte + 1,
-                              grootte - 2, grootte - 2);
+            else if (this.Legaal(speelveld, speelveld.roodbeurt) && 
+                     speelveld.help)
+                g.FillEllipse(Brushes.LightGray, x * grootte + 1, 
+                              y * grootte + 1, grootte - 2, grootte - 2);
         }
 
-        public bool Legaal(Speelveld speelveld)
+        public bool Legaal(Speelveld speelveld, bool roodbeurt)
         {
             Vakje[,] vakjes = speelveld.vakjes;
             bool ingesloten;
@@ -52,13 +53,13 @@ namespace WindowsFormsApplication6
                            y + dj >= 0 && y + dj < speelveld.yvakjes) //
                     {
                         if (vakjes[x + di, y + dj].gevuld &&
-                            vakjes[x + di, y + dj].rood != speelveld.roodbeurt)
+                            vakjes[x + di, y + dj].rood != roodbeurt)
                         {
                             ingesloten = true;
                         }
 
                         else if (vakjes[x + di, y + dj].gevuld &&
-                                 vakjes[x + di, y + dj].rood == speelveld.roodbeurt &&
+                                 vakjes[x + di, y + dj].rood == roodbeurt &&
                                  ingesloten)
                             return true;
 
@@ -96,12 +97,13 @@ namespace WindowsFormsApplication6
                         }
 
                         else if (vakjes[x + di, y + dj].gevuld &&
-                                 vakjes[x + di, y + dj].rood == speelveld.roodbeurt &&
-                                 ingesloten)
+                                 vakjes[x + di, y + dj].rood == 
+                                 speelveld.roodbeurt && ingesloten)
                         {
                             for (int t = 1; t <= ingeslotenn; t++)
                             {
-                                vakjes[x + i * t, y + j * t].rood = speelveld.roodbeurt;
+                                vakjes[x + i * t, y + j * t].rood = 
+                                    speelveld.roodbeurt;
                             }
                             break;
                         }
