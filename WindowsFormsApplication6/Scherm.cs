@@ -25,6 +25,7 @@ namespace WindowsFormsApplication6
             reset.Click += (sender, e) =>
             {
                 speelveld.Leeg();
+                speelveld.pasknop = false;
                 scorebord.Invalidate();
                 speelveld.Invalidate();
             };
