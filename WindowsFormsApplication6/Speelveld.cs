@@ -6,8 +6,8 @@ namespace WindowsFormsApplication6
 {
     public class Speelveld : UserControl
     {
-        public int xvakjes = 3, yvakjes = 2;
-        public int vakjesformaat = 200;
+        public int xvakjes = 6, yvakjes = 6;
+        public int vakjesformaat = 75;
         public bool roodbeurt = true;
         public bool help = false;
         public bool pasknop = true;
